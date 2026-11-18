@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coin Ascension</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient-layer" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="factory-background" aria-hidden="true">
+      <div class="factory-light light-left"></div>
+      <div class="factory-light light-right"></div>
+      <div class="factory-window window-left"><span></span><span></span><span></span></div>
+      <div class="factory-window window-right"><span></span><span></span><span></span></div>
+      <div class="pipe pipe-left"></div>
+      <div class="pipe pipe-right"></div>
+      <div class="conveyor conveyor-left"><i></i><i></i><i></i><i></i></div>
+      <div class="conveyor conveyor-right"><i></i><i></i><i></i><i></i></div>
+      <div class="steam steam-left"></div>
+      <div class="steam steam-right"></div>
+    </div>
+    <main class="game-shell">
+      <div class="factory-roof" aria-hidden="true"></div>
+      <div id="kingSkinEffects" class="king-skin-effects" aria-hidden="true" hidden></div>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">A LUCKY ID<span class="secret-letter-wrap"><button id="secretIdleTrigger" class="secret-letter" type="button" aria-label="L">L</button></span>E GAME</p>
+          <h1>Coin Ascens<button id="secretAscensionTrigger" class="secret-letter" type="button" aria-label="i">i</button>on</h1>
+        </div>
+        <div class="header-actions">
+          <button id="soundBtn" class="small-button" type="button" aria-pressed="true">Sound: On</button>
+          <button id="saveBtn" class="small-button" type="button">Save</button>
+          <button id="openCollectionsBtn" class="small-button" type="button">Collections</button>
+          <button id="resetBtn" class="small-button danger" type="button">Reset</button>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="coin-card">
+          <p class="stat-label">Coins</p>
+          <strong id="coins">0</strong>
+          <p id="incomePerSecond" class="income">+0 / second</p>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">Flip Power</p>
+          <strong id="perFlip">1</strong>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">Prestige</p>
+          <strong id="prestigeLevel">0</strong>
+        </article>
+        <article class="stat-card">
+          <p class="stat-label">Global</p>
+          <strong id="globalMultiplier">x1</strong>
+        </article>
+      </section>
+
+      <section class="play-grid">
+        <div class="left-column">
+          <article class="panel flip-panel">
+            <p class="stat-label">Current Coin</p>
+            <strong id="currentCoinName" class="current-coin-name">Copper Coin</strong>
+            <div class="coin-tier-track" id="coinTierTrack"></div>
+            <button id="coinBtn" class="giant-coin copper" type="button" aria-label="Click coin">
+              <span id="coinEmoji"></span>
+            </button>
+            <button id="rushBtn" class="rush-button" type="button" hidden>Use Mint Rush</button>
+            <p id="result" class="result" aria-live="polite"></p>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Multiplier Breakdown</h2>
+            </div>
+            <div class="multiplier-grid">
+              <div><span>Rare Coin</span><strong id="rareMultiplier">x1</strong></div>
+              <div><span>Achievements</span><strong id="achievementMultiplier">x1</strong></div>
+              <div><span>Prestige</span><strong id="prestigeMultiplier">x1</strong></div>
+              <div><span>Total</span><strong id="totalMultiplier">x1</strong></div>
+            </div>
+          </article>
+          <article class="panel goal-panel">
+            <div class="panel-heading">
+              <h2>Next Goal</h2>
+              <span id="goalNextBadge">100M Prestige</span>
+            </div>
+            <div class="goal-grid">
+              <div><span>Highest Owned</span><strong id="goalHighestCoin">Copper Coin</strong></div>
+              <div><span>Equipped</span><strong id="goalEquippedCoin">Copper Coin · x1</strong></div>
+              <div><span>Next Coin</span><strong id="goalNextCoin">Silver Coin</strong></div>
+              <div><span>Next Odds</span><strong id="goalNextOdds">1 in 500</strong></div>
+              <div><span>Permanent Gain</span><strong id="goalNextMultiplier">x2</strong></div>
+              <div><span>Each Click</span><strong id="goalClickIncome">+1</strong></div>
+              <div><span>Per Second</span><strong id="goalPassiveIncome">+0</strong></div>
+            </div>
+            <div class="prestige-progress-heading">
+              <span>Progress to Prestige</span>
+              <strong id="prestigeProgressText">0 / 100M</strong>
+            </div>
+            <progress id="prestigeProgress" value="0" max="100000000"></progress>
+          </article>
+        </div>
+
+        <div class="right-column">
+          <article class="panel upgrade-wheel-panel">
+            <div class="panel-heading">
+              <h2>Upgrades</h2>
+              <span id="luckValue">x1 Luck</span>
+            </div>
+            <div id="upgradeList" class="shop-list"></div>
+          </article>
+
+          <article class="panel special-panel">
+            <div class="panel-heading">
+              <h2>Special Upgrades</h2>
+              <span>No Coins/Sec</span>
+            </div>
+            <p class="special-description">Boost luck, flips, rushes, collection odds, and rare rewards.</p>
+            <div id="utilityList" class="shop-list"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h2>Prestige</h2>
+              <strong id="prestigeNext">100<button id="secretKingSkinTrigger" class="prestige-secret-letter" type="button" aria-label="M">M</button></strong>
+            </div>
+            <p>Reset your coins and upgrades for a permanent production boost.</p>
+            <button id="prestigeBtn" class="prestige-button" type="button">
+              Prestige for +0.5x
+            </button>
+            <div class="milestone-section">
+              <h3>Prestige Milestones</h3>
+              <div id="prestigeMilestones" class="milestone-list"></div>
+            </div>
+          </article>
+          <article class="panel challenge-panel">
+            <div class="panel-heading">
+              <h2>Optional Challenge</h2>
+              <span>Cosmetic reward</span>
+            </div>
+            <p id="challengeDescription">Earn 1,000 coins without buying upgrades.</p>
+            <div class="challenge-progress-heading">
+              <span id="challengeStatus">Not started</span>
+              <strong id="challengeProgressText">0 / 1,000</strong>
+            </div>
+            <progress id="challengeProgress" value="0" max="1000"></progress>
+            <p id="challengeReward">Reward: Mint Crown skin and Patient Mint title</p>
+            <button id="challengeBtn" class="small-button challenge-button" type="button">Start Challenge</button>
+          </article>
+        </div>
+      </section>
+
+      <dialog id="collectionsDialog" class="collections-dialog">
+        <div class="collections-header">
+          <div>
+            <p class="eyebrow">YOUR PROGRESS</p>
+            <h2>Collections</h2>
+          </div>
+          <button id="closeCollectionsBtn" class="small-button" type="button">Close</button>
+        </div>
+        <section class="panel collection-panel">
+          <div class="panel-heading">
+            <h2>Coin Collection</h2>
+            <span id="collectionCount">1 / 10</span>
+          </div>
+          <div id="coinCollection" class="mutation-grid"></div>
+        </section>
+        <section class="panel collection-panel">
+          <div class="panel-heading">
+            <h2>Achievements</h2>
+            <span id="achievementCount">0 / 0</span>
+          </div>
+          <div id="achievementList" class="achievement-grid"></div>
+        </section>
+        <section id="secretPanel" class="panel secret-panel" hidden>
+          <div class="panel-heading">
+            <h2>Secret Mint</h2>
+          </div>
+          <div class="secret-controls">
+            <label>Coin
+              <select id="secretCoinSelect"></select>
+            </label>
+            <button id="secretGrantCoinBtn" class="small-button" type="button">Grant &amp; Equip</button>
+            <label>Building
+              <select id="secretBuildingSelect"></select>
+            </label>
+            <label>Amount
+              <input id="secretBuildingAmount" type="number" min="1" step="1" value="1" />
+            </label>
+            <button id="secretGrantBuildingBtn" class="small-button" type="button">Grant Building</button>
+            <label>Mint Rushes
+              <input id="secretRushAmount" type="number" min="1" step="1" value="1" />
+            </label>
+            <button id="secretGrantRushBtn" class="small-button" type="button">Spawn Mint Rushes</button>
+          </div>
+          <p id="secretStatus" class="secret-status" aria-live="polite"></p>
+        </section>
+      </dialog>
+    </main>
+    <div id="rarityOverlay" class="rarity-overlay" aria-live="assertive"></div>
+    <div id="achievementPopup" class="achievement-popup" aria-live="polite"></div>
+    <div id="particleLayer" class="particle-layer"></div>
+    <script src="script.js"></script>
+  </body>
+</html>
